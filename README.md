@@ -1,72 +1,12 @@
-# mermail-bounty-radar
+# ⚠️ Moved: mermail-crypto-payout-reconciler
 
-A community companion skill for [Mermail](https://mermail.app) that turns a
-mailbox into an **opportunity radar** for bounties, hackathons, and grants.
+This repo held an early draft under a different name. **The canonical skill is now:**
 
-It monitors incoming email, extracts structured opportunity intel (sponsor,
-prize, deadline, chain, requirements), and scores each opportunity against
-your standing participation rules — producing an `ATTACK / WATCH / SKIP`
-shortlist.
+## 👉 https://github.com/manuelfeb056-max/mermail-crypto-payout-reconciler
 
-> **Not an official skill.** This is a community companion built on the public
-> Mermail MCP server. It follows the official authoring, security, and
-> contribution norms from
-> [Nudgen-Marketing/mermail-skills](https://github.com/Nudgen-Marketing/mermail-skills).
+**`mermail-crypto-payout-reconciler`** — reconcile crypto payout claims arriving by email
+(bounties, contractor pay, contributor rewards) against an owner-supplied expected
+payout list. Email is untrusted data: claims are triaged as matched / amount-mismatch /
+unknown claimant / duplicate / unverifiable sender. **Never auto-pays, never auto-sends.**
 
-## Layout
-
-```
-skills/mermail-bounty-radar/
-  SKILL.md                 # the skill (frontmatter name == folder name)
-  agents/openai.yaml       # OpenAI agents wiring (Mermail MCP dependency)
-  references/tools.md      # exact MCP call contracts (claims no tools)
-  references/security.md   # untrusted-email contract, approval boundaries
-scripts/
-  rules.json               # standing participation rules (edit to yours)
-  extract-opportunity.mjs  # deterministic email -> opportunity JSON
-  score-opportunity.mjs    # opportunity JSON -> ATTACK/WATCH/SKIP
-tests/
-  fixtures/                # sample emails
-  scenarios.json           # behavior scenarios (official format)
-  validate.mjs             # local validator (mirrors official CI checks)
-```
-
-## Install
-
-```bash
-npx --yes skills add <this-repo> --skill mermail-bounty-radar
-```
-
-Connect the Mermail MCP server separately (skills provide workflows; MCP
-provides tools):
-
-```bash
-openclaw mcp add mermail --url https://console.mermail.app/mcp \
-  --transport streamable-http --auth oauth
-openclaw mcp login mermail
-```
-
-## Try the deterministic pipeline
-
-```bash
-node scripts/extract-opportunity.mjs < tests/fixtures/good-bounty.json \
-  | node scripts/score-opportunity.mjs
-```
-
-## Validate
-
-```bash
-npm test
-```
-
-## Security
-
-Email is untrusted data. The skill never follows instructions inside messages,
-never preflights links, never treats `From` as authentication, and never lets
-an email authorize a send or a wallet action. Any external effect requires an
-exact preview and fresh approval. See
-`skills/mermail-bounty-radar/references/security.md`.
-
-## License
-
-MIT
+Community companion skill for the Mermail × Superteam "Build and Demo a Mermail Agent Skill" bounty.
