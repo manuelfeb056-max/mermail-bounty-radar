@@ -1,0 +1,1 @@
+{"license":"MIT","name":"mermail-bounty-radar","scripts":{"test":"node tests/validate.mjs"},"type":"module","version":"0.1.0"}
